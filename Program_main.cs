@@ -115,7 +115,7 @@ namespace ExtractPickleballInfo
         const string week = "week1";
         const string excludedTitle1 = "LGBT";
         const string excludedTitle2 = "Family";
-        const string weekday = "wednesday";
+        const string weekday = "sunday";
 
         static async Task<string> GETResponse()
         {
@@ -222,6 +222,10 @@ namespace ExtractPickleballInfo
                     try
                     {
                         infoObj = JsonConvert.DeserializeObject<RootPrograms>(info);
+                        if (infoObj == null)
+                        {
+                            continue;
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -229,34 +233,45 @@ namespace ExtractPickleballInfo
                         return 0;
                     }
 
-                    List<Day>? programs = infoObj.programs[0].days;
 
-                    foreach (Day program in programs)
+                    try
                     {
-                        if (program.title.Contains(sport) && !program.age.Contains("60") && !program.age.Contains("55") && !program.title.Contains(excludedTitle1) && !program.title.Contains(excludedTitle2))
+                        //Console.WriteLine(centreName);
+                        //Console.WriteLine(id);
+                        List<Day>? programs = infoObj.programs[0].days;
+                        foreach (Day program in programs)
                         {
-                            
-
-                            
-                            foreach (Time time in program.times)
+                            if (program.title.Contains(sport) && !program.age.Contains("60") && !program.age.Contains("55") && !program.title.Contains(excludedTitle1) && !program.title.Contains(excludedTitle2))
                             {
-                                if (time.day.Contains(weekday))
-                                {
 
-                                    if (showCommInfo)
+
+
+                                foreach (Time time in program.times)
+                                {
+                                    if (time.day.Contains(weekday))
                                     {
-                                        Console.WriteLine(centreName);
-                                        showCommInfo = false;
+
+                                        if (showCommInfo)
+                                        {
+                                            Console.WriteLine(centreName);
+                                            showCommInfo = false;
+                                        }
+
+                                        Console.WriteLine(program.title);
+                                        Console.WriteLine(time.day + "\t" + time.title);
                                     }
 
-                                    Console.WriteLine(program.title);
-                                    Console.WriteLine(time.day + "\t" + time.title);
-                                }
 
-                                
+                                }
                             }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+
+                    
 
                     if (!showCommInfo)
                     {
