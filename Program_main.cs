@@ -112,10 +112,10 @@ namespace ExtractPickleballInfo
 
         //Global variables
         const string sport = "Pickleball";
-        const string week = "week1";
+        const string week = "week2";
         const string excludedTitle1 = "LGBT";
         const string excludedTitle2 = "Family";
-        const string weekday = "sunday";
+        const string weekday = "monday";
 
         static async Task<string> GETResponse()
         {
@@ -172,7 +172,7 @@ namespace ExtractPickleballInfo
 
         static async Task<int> Main()
         {
-
+            
 
             string content = await GETResponse();
             //Console.WriteLine(content);
