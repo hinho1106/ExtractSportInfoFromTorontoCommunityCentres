@@ -5,9 +5,9 @@ using OpenQA.Selenium.Chrome;
 using System.Threading.Tasks;
 using static System.Net.WebRequestMethods;
 
-namespace ExtractPickleballInfo
+namespace ExtractSportInfo
 {
-    internal class Program_main
+    internal class Program_dropin_general
     {
 
         //JSON format for macro info
